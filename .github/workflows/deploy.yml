@@ -2,7 +2,7 @@ name: Deploy Release
 
 on:
   release:
-    types: [published]
+    types: [prereleased]
 
 jobs:
   deploy-test:
