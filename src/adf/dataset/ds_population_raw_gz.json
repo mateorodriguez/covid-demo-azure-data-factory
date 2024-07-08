@@ -1,0 +1,27 @@
+{
+	"name": "ds_population_raw_gz",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_devcoviddemostrgacct",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Population/Ingestion/Source"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "population_by_age.tsv.gz",
+				"container": "population"
+			},
+			"columnDelimiter": "\t",
+			"compressionCodec": "gzip",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

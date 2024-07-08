@@ -1,0 +1,26 @@
+{
+	"name": "ds_population_raw_tsv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_datalake_devcoviddemodl",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Population/Ingestion/Sink"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "population",
+				"fileSystem": "raw"
+			},
+			"columnDelimiter": "\t",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

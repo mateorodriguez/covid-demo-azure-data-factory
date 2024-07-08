@@ -1,0 +1,11 @@
+{
+	"name": "ls_blob_devcoviddemostrgacct",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"serviceEndpoint": "https://devcoviddemostrgacct.blob.core.windows.net/",
+			"accountKind": "StorageV2"
+		}
+	}
+}
