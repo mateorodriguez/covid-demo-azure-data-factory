@@ -2,7 +2,7 @@
 	"name": "ds_population_raw_gz",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_blob_devcoviddemostrgacct",
+			"referenceName": "ls_blob_coviddemostrgacct",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
