@@ -6,7 +6,9 @@ jobs:
     steps:
 
       # Checkout code
-    - uses: actions/checkout@adf_publish
+    - uses: actions/checkout@main
+      with:
+        ref: 'adf_publish'
 
       # Log into Azure
     - uses: azure/login@v1
