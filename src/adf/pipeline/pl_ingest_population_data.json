@@ -79,7 +79,8 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"message": "File structure does not match"
+								"message": "Column count mismatch",
+								"errorCode": "VAL-001"
 							}
 						}
 					],
