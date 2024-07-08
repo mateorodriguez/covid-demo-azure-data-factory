@@ -22,7 +22,7 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./dev-covid-demo-adf/ARMTemplateForFactory.json
-        parameters: factoryName=test-covid-demo-adf ls_blob_devcoviddemostrgacct_properties_typeProperties_serviceEndpoint=https://devcoviddemostrgacct.blob.core.windows.net/ ls_datalake_devcoviddemodl_properties_typeProperties_url=https://devcoviddemodl.dfs.core.windows.net/
+        parameters: factoryName=test-covid-demo-adf ls_blob_coviddemostrgacct_properties_typeProperties_serviceEndpoint=https://devcoviddemostrgacct.blob.core.windows.net/ ls_datalake_coviddemodl_properties_typeProperties_url=https://devcoviddemodl.dfs.core.windows.net/
 
       # output containerName variable from template
     - run: echo ${{ steps.deploy.outputs.containerName }}
