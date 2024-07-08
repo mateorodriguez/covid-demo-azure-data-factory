@@ -1,0 +1,10 @@
+{
+	"name": "ls_datalake_coviddemodl",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://devcoviddemodl.dfs.core.windows.net/"
+		}
+	}
+}
