@@ -2,7 +2,7 @@
 	"name": "ds_population_raw_tsv",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_datalake_devcoviddemodl",
+			"referenceName": "ls_datalake_coviddemodl",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {

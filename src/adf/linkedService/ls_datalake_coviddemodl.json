@@ -1,5 +1,5 @@
 {
-	"name": "ls_datalake_devcoviddemodl",
+	"name": "ls_datalake_coviddemodl",
 	"properties": {
 		"annotations": [],
 		"type": "AzureBlobFS",
