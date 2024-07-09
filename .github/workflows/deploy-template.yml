@@ -14,7 +14,13 @@ jobs:
     
     steps:
     - name: Print
-      run: echo $inputs.environment 
+      run: echo "$inputs.environment"
+
+    - name: Print2
+      run: echo "Value is ${{inputs.environment}}"
+
+    - name: Print3
+      run: echo "Value is ${{secrets.AZURE_CREDENTIALS}}"
     
     - name: Checkout code
       uses: actions/checkout@main
