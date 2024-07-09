@@ -1,0 +1,23 @@
+{
+	"name": "ls_sql_coviddemodb",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "dev-covid-demo-db-svr.database.windows.net",
+			"database": "dev-covid-demo-db",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "devadmin",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_kv_coviddemo",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "covid-demo-db-pwd"
+			}
+		}
+	}
+}

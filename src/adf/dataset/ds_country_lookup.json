@@ -1,0 +1,47 @@
+{
+	"name": "ds_country_lookup",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_datalake_coviddemodl",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Lookup"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "country_lookup.csv",
+				"fileSystem": "lookup"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "country",
+				"type": "String"
+			},
+			{
+				"name": "country_code_2_digit",
+				"type": "String"
+			},
+			{
+				"name": "country_code_3_digit",
+				"type": "String"
+			},
+			{
+				"name": "continent",
+				"type": "String"
+			},
+			{
+				"name": "population",
+				"type": "String"
+			}
+		]
+	}
+}

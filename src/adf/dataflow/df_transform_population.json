@@ -1,0 +1,119 @@
+{
+	"name": "df_transform_population",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_population_raw_tsv",
+						"type": "DatasetReference"
+					},
+					"name": "PopulationDataSource"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_country_lookup",
+						"type": "DatasetReference"
+					},
+					"name": "DimCountry"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_processed_population",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SelectRequiredColumns"
+				},
+				{
+					"name": "CountryLookup"
+				},
+				{
+					"name": "SplitAgeTimeColumn"
+				},
+				{
+					"name": "PivoyByAgreGroup"
+				},
+				{
+					"name": "SelectForSink"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          {indic_de,geo\\time} as string,",
+				"          {2008 } as string,",
+				"          {2009 } as string,",
+				"          {2010 } as string,",
+				"          {2011 } as string,",
+				"          {2012 } as string,",
+				"          {2013 } as string,",
+				"          {2014 } as string,",
+				"          {2015 } as string,",
+				"          {2016 } as string,",
+				"          {2017 } as string,",
+				"          {2018 } as string,",
+				"          {2019 } as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> PopulationDataSource",
+				"source(output(",
+				"          country as string,",
+				"          country_code_2_digit as string,",
+				"          country_code_3_digit as string,",
+				"          continent as string,",
+				"          population as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> DimCountry",
+				"SplitAgeTimeColumn select(mapColumn(",
+				"          age_group,",
+				"          country_code,",
+				"          percentage_2019 = {2019 }",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectRequiredColumns",
+				"PivoyByAgreGroup, DimCountry lookup(country_code == country_code_2_digit,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> CountryLookup",
+				"PopulationDataSource derive(country_code = substringIndex({indic_de,geo\\time}, \",\", -1),",
+				"          age_group = substringIndex({indic_de,geo\\time}, \",\", 1)) ~> SplitAgeTimeColumn",
+				"SelectRequiredColumns pivot(groupBy(country_code),",
+				"     pivotBy(age_group, ['PC_Y0_14', 'PC_Y15_24', 'PC_Y25_49', 'PC_Y50_64', 'PC_Y65_79', 'PC_Y80_MAX']),",
+				"     count = sum(percentage_2019),",
+				"     columnNaming: '$V_$N',",
+				"     lateral: true) ~> PivoyByAgreGroup",
+				"CountryLookup select(mapColumn(",
+				"          country,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit,",
+				"          population,",
+				"          age_group_0_14 = PC_Y0_14_count,",
+				"          age_group_15_24 = PC_Y15_24_count,",
+				"          age_group_25_49 = PC_Y25_49_count,",
+				"          age_group_50_64 = PC_Y50_64_count,",
+				"          age_group_64_79 = PC_Y65_79_count,",
+				"          age_group_80_max = PC_Y80_MAX_count",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectForSink",
+				"SelectForSink sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}
