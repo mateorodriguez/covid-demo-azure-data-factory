@@ -3,26 +3,26 @@ name: Azure ARM
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: test
     steps:
 
-      # Checkout code
-    - uses: actions/checkout@main
-      with:
-        ref: 'adf_publish'
+      - name: Checkout code
+        uses: actions/checkout@main
+        with:
+          ref: 'adf_publish'
 
-      # Log into Azure
-    - uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Deploy ARM template
-    - name: Run ARM deploy
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: ./dev-covid-demo-adf/ARMTemplateForFactory.json
-        parameters: factoryName=test-covid-demo-adf ls_blob_coviddemostrgacct_properties_typeProperties_serviceEndpoint=https://devcoviddemostrgacct.blob.core.windows.net/ ls_datalake_coviddemodl_properties_typeProperties_url=https://devcoviddemodl.dfs.core.windows.net/
-
-      # output containerName variable from template
-    - run: echo ${{ steps.deploy.outputs.containerName }}
+      - name: Run ARM deploy
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ secrets.AZURE_RG }}
+          template: ./dev-covid-demo-adf/ARMTemplateForFactory.json
+          parameters: |
+            factoryName=${{ env.FACTORY_NAME }}
+            ls_blob_coviddemostrgacct_properties_typeProperties_serviceEndpoint=${{env.BLOB_STORAGE_ENDPOINT}}
+            ls_datalake_coviddemodl_properties_typeProperties_url=${{env.DATA_LAKE_STORAGE_URL}}

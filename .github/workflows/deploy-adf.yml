@@ -1,0 +1,18 @@
+name: Deploy ADF Using ARM Template
+
+on: [push]
+
+jobs:
+  deploy-test:
+    uses: ./.github/workflows/deploy-template.yml
+    with:
+      environment: test
+    secrets: inherit
+    
+  deploy-prod:
+    if: github.event_name == 'release'
+    needs: deploy-test
+    uses: ./.github/workflows/deploy-template.yml
+    with:
+      environment: production
+    secrets: inherit
