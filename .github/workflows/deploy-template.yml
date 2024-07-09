@@ -13,6 +13,10 @@ on:
         required: true
       AZURE_RG:
         required: true
+      BLOB_STORAGE_ENDPOINT:
+        required: true
+      DATA_LAKE_STORAGE_URL:
+        required: true
       
 jobs:
   deploy:
@@ -20,15 +24,6 @@ jobs:
     environment: test
     
     steps:
-    - name: Print
-      run: echo "$inputs.environment"
-
-    - name: Print2
-      run: echo "Value is ${{inputs.environment}}"
-
-    - name: Print3
-      run: echo "Value is ${{secrets.AZURE_CREDENTIALS}}"
-    
     - name: Checkout code
       uses: actions/checkout@main
       with:
@@ -46,6 +41,6 @@ jobs:
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./dev-covid-demo-adf/ARMTemplateForFactory.json
         parameters: |
-          factoryName=${{ env.FACTORY_NAME }}
-          ls_blob_coviddemostrgacct_properties_typeProperties_serviceEndpoint=${{env.BLOB_STORAGE_ENDPOINT}}
-          ls_datalake_coviddemodl_properties_typeProperties_url=${{env.DATA_LAKE_STORAGE_URL}}
+          factoryName=${{ vars.FACTORY_NAME }}
+          ls_blob_coviddemostrgacct_properties_typeProperties_serviceEndpoint=${{secrets.BLOB_STORAGE_ENDPOINT}}
+          ls_datalake_coviddemodl_properties_typeProperties_url=${{secrets.DATA_LAKE_STORAGE_URL}}
