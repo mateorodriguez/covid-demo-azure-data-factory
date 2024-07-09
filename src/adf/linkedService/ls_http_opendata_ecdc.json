@@ -1,0 +1,17 @@
+{
+	"name": "ls_http_opendata_ecdc",
+	"properties": {
+		"parameters": {
+			"sourceBaseUrl": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "@{linkedService().sourceBaseUrl}",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
