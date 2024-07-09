@@ -1,6 +1,11 @@
 name: Deploy Release
 
-on: workflow_call
+on: 
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
 
 jobs:
   deploy:
