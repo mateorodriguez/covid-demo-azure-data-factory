@@ -6,7 +6,14 @@ on:
       environment:
         required: true
         type: string
-
+    secrets:
+      AZURE_CREDENTIALS:
+        required: true
+      AZURE_SUBSCRIPTION:
+        required: true
+      AZURE_RG:
+        required: true
+      
 jobs:
   deploy:
     runs-on: ubuntu-latest
