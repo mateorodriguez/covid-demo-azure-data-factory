@@ -1,12 +1,11 @@
 name: Deploy Release
 
-on:
-  release:
-    types: [prereleased]
+on: workflow_call
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     
     steps:
     - name: Checkout code
