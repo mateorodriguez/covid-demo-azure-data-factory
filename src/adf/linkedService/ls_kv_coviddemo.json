@@ -1,0 +1,10 @@
+{
+	"name": "ls_kv_coviddemo",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://dev-covid-demo-kv.vault.azure.net/"
+		}
+	}
+}
