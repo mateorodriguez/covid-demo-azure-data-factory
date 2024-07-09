@@ -1,0 +1,42 @@
+{
+	"name": "ds_ecdc_raw_csv_http",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_http_opendata_ecdc",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"sourceBaseUrl": {
+					"value": "@dataset().baseUrl",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"baseUrl": {
+				"type": "string"
+			},
+			"relativeUrl": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ECDC/Ingestion/Source"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().relativeUrl",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
