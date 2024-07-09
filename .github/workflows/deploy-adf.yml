@@ -1,6 +1,6 @@
 name: Deploy ADF Using ARM Template
 
-on: workflow_call
+on: [push]
 
 jobs:
   deploy-test:
