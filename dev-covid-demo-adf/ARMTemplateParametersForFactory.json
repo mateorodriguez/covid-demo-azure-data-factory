@@ -10,6 +10,21 @@
 		},
 		"ls_datalake_coviddemodl_properties_typeProperties_url": {
 			"value": "https://devcoviddemodl.dfs.core.windows.net/"
+		},
+		"ls_http_opendata_ecdc_properties_typeProperties_url": {
+			"value": "@{linkedService().sourceBaseUrl}"
+		},
+		"ls_kv_coviddemo_properties_typeProperties_baseUrl": {
+			"value": "https://dev-covid-demo-kv.vault.azure.net/"
+		},
+		"ls_sql_coviddemodb_properties_typeProperties_server": {
+			"value": "dev-covid-demo-db-svr.database.windows.net"
+		},
+		"ls_sql_coviddemodb_properties_typeProperties_database": {
+			"value": "dev-covid-demo-db"
+		},
+		"ls_sql_coviddemodb_properties_typeProperties_userName": {
+			"value": "devadmin"
 		}
 	}
 }

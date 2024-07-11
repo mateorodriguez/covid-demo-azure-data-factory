@@ -15,6 +15,26 @@
 			"type": "string",
 			"defaultValue": "https://devcoviddemodl.dfs.core.windows.net/"
 		},
+		"ls_http_opendata_ecdc_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().sourceBaseUrl}"
+		},
+		"ls_kv_coviddemo_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://dev-covid-demo-kv.vault.azure.net/"
+		},
+		"ls_sql_coviddemodb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "dev-covid-demo-db-svr.database.windows.net"
+		},
+		"ls_sql_coviddemodb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "dev-covid-demo-db"
+		},
+		"ls_sql_coviddemodb_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "devadmin"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -47,10 +67,45 @@
 					},
 					"ls_datalake_coviddemodl_properties_typeProperties_url": {
 						"value": "[parameters('ls_datalake_coviddemodl_properties_typeProperties_url')]"
+					},
+					"ls_http_opendata_ecdc_properties_typeProperties_url": {
+						"value": "[parameters('ls_http_opendata_ecdc_properties_typeProperties_url')]"
+					},
+					"ls_kv_coviddemo_properties_typeProperties_baseUrl": {
+						"value": "[parameters('ls_kv_coviddemo_properties_typeProperties_baseUrl')]"
+					},
+					"ls_sql_coviddemodb_properties_typeProperties_server": {
+						"value": "[parameters('ls_sql_coviddemodb_properties_typeProperties_server')]"
+					},
+					"ls_sql_coviddemodb_properties_typeProperties_database": {
+						"value": "[parameters('ls_sql_coviddemodb_properties_typeProperties_database')]"
+					},
+					"ls_sql_coviddemodb_properties_typeProperties_userName": {
+						"value": "[parameters('ls_sql_coviddemodb_properties_typeProperties_userName')]"
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "dev-covid-demo-adf_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'dev-covid-demo-adf_ArmTemplate_0')]"
+			]
 		}
 	]
 }
