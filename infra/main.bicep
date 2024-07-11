@@ -46,7 +46,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
 
 resource keyVaultSecret 'Microsoft.KeyVault/vaults/secrets@2021-04-01-preview' = {
   parent: keyVault
-  name: 'DbServerPwd'
+  name: 'covid-demo-db-pwd'
   properties: {
     value: secretValue
   }
@@ -142,6 +142,34 @@ resource DataFactory 'Microsoft.DataFactory/factories@2018-06-01' = {
   }
 }
 
+
+@description('This is the built-in Storage Blob Data Contributor role. See https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles/storage')
+resource contributorRoleDefinition 'Microsoft.Authorization/roleDefinitions@2018-01-01-preview' existing = {
+  scope: subscription()
+  name: 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
+}
+
+resource DataFactoryContributorRoleInStrg 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(resourceGroup().id, sa.id, contributorRoleDefinition.id, DataFactory.id)
+  scope: sa
+  properties: {
+    description: DataFactory.name
+    principalId: DataFactory.identity.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: contributorRoleDefinition.id
+  }
+}
+
+resource DataFactoryContributorRoleInDataLake 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(resourceGroup().id, sadl.id, contributorRoleDefinition.id, DataFactory.id)
+  scope: sadl
+  properties: {
+    description: DataFactory.name
+    principalId: DataFactory.identity.principalId
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: contributorRoleDefinition.id
+  }
+}
 
 // Create SQL server
 
