@@ -1,9 +1,6 @@
 name: Deploy ADF Using ARM Template
 
-on:
-  push:
-    branches:
-    - "adf_publish"
+on: workflow_call
 
 jobs:
   deploy-test:
