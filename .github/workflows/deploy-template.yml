@@ -40,4 +40,4 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./dev-covid-demo-adf/ARMTemplateForFactory.json
-        parameters: factoryName=${{ vars.FACTORY_NAME }} ls_blob_coviddemostrgacct_properties_typeProperties_serviceEndpoint=${{secrets.BLOB_STORAGE_ENDPOINT}} ls_datalake_coviddemodl_properties_typeProperties_url=${{secrets.DATA_LAKE_STORAGE_URL}}
+        parameters: factoryName=${{ vars.FACTORY_NAME }} ls_blob_coviddemostrgacct_properties_typeProperties_serviceEndpoint=${{secrets.BLOB_STORAGE_ENDPOINT}} ls_datalake_coviddemodl_properties_typeProperties_url=${{secrets.DATA_LAKE_STORAGE_URL}} ls_kv_coviddemo_properties_typeProperties_baseUrl=${{secrets.KEYVAULT_URL}} ls_sql_coviddemodb_properties_typeProperties_server=${{secrets.DB_SERVER_NAME}} ls_sql_coviddemodb_properties_typeProperties_database=${{secrets.DB_NAME}} ls_sql_coviddemodb_properties_typeProperties_userName=${{secrets.DB_CREDENTIALS_USERNAME}} 
