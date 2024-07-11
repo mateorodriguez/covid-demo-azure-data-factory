@@ -46,7 +46,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
 
 resource keyVaultSecret 'Microsoft.KeyVault/vaults/secrets@2021-04-01-preview' = {
   parent: keyVault
-  name: 'DbServerPwd'
+  name: 'covid-demo-db-pwd'
   properties: {
     value: secretValue
   }
